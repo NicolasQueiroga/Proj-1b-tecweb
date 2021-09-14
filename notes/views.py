@@ -13,7 +13,6 @@ def upload(request):
     upload = NoteCreate()
     if request.method == 'POST':
         upload = NoteCreate(request.POST, request.FILES)
-        print(f'\n\n\n{upload}\n\n\n')
         if upload.is_valid():
             upload.save()
             return redirect('index')
@@ -30,7 +29,6 @@ def update_note(request, note_id):
     note_form = NoteCreate(request.POST or None, instance=note_sel)
     if note_form.is_valid():
         note_form.save()
-        print(f'{note_form}')
         return redirect('index')
     return render(request, 'notes/index.html', {'upload_form': note_form})
 
