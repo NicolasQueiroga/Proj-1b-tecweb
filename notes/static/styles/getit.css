@@ -148,6 +148,11 @@ html, body {
   margin-bottom: 15px;
 }
 
+.card-tag {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
 .card-content {
   font-size: 0.8rem;
   align-self: center;
@@ -212,6 +217,12 @@ html, body {
 }
 
 .popup-detail {
+  width: 175px;
+  height: 18px;
+  border: none;
+}
+
+.popup-tag {
   width: 175px;
   height: 18px;
   border: none;
