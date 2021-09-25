@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Note
+from .models import Note, Tag
 from .forms import NoteCreate
 from django.http import HttpResponse
 
@@ -9,12 +9,18 @@ def index(request):
     return render(request, 'notes/notes.html', {'notes': notes})
 
 
-def upload(request):
-    upload = NoteCreate()
+
+def upload_note(request):
+    upload_note = NoteCreate()
     if request.method == 'POST':
-        upload = NoteCreate(request.POST, request.FILES)
-        if upload.is_valid():
-            upload.save()
+        upload_note = NoteCreate(request.POST, request.FILES)
+        tag_name = request.POST.get('tag')
+        tag, create = Tag.objects.get_or_create(name=tag_name)
+        if create:
+            tag.save()
+        upload_note.tags = tag
+        if upload_note.is_valid():
+            upload_note.save()
             return redirect('index')
         else:
             return HttpResponse("""your form is wrong, reload <a href = "{{ url : 'index'}}">here</a>""")
@@ -41,3 +47,4 @@ def delete_note(request, note_id):
         return redirect('index')
     note_sel.delete()
     return redirect('index')
+
