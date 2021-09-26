@@ -1,6 +1,6 @@
-{% extends "notes/index.html" %}
+{% extends "sorted/index.html" %}
 {% load static %}
-{% block notes %}
+{% block sorted %}
 {% for note in notes %}
 <div class="card">
     <h3 class="card-title">{{ note.title }}</h3>
@@ -27,8 +27,12 @@
             <button class="delete-btn" type="submit">Deletar</button>
         </form>
     </div>
-{% empty %}
-<h3 class="empty">Adicione algum lembrete!</h3>
+    {% empty %}
+    <form action="{% url 'index' %}">
+        <button class="no-btn is-btn" type="submit">
+            <h3 class="empty">Adicione algum lembrete!</h3>
+        </button>
+    </form>
 
 </div>
 {% endfor %}

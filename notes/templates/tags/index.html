@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="appbar">
+    <form action="{% url 'index' %}">
+        <button class="no-btn" type="submit">
+            <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" />
+        </button>
+    </form>
+    <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+</div>
+
+<script type="text/javascript" src="{% static 'scripts/getit.js' %}"></script>
+
+<div class="card-container">
+    {% block tags %} {% endblock %}
+</div>
+
+{% endblock %}
