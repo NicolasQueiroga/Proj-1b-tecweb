@@ -64,12 +64,11 @@ def delete_note(request, note_id):
         note_sel = Note.objects.get(id=note_id)
     except Note.DoesNotExist:
         return redirect('index')
-    if note_sel.tag:
-        tag_id = note_sel.tag.id
-        if Tag.objects.filter(pk=note_sel.tag.id):
-            Tag.objects.get(id=tag_id).delete()
+    tag = note_sel.tag
     note_sel.delete()
-
+    if tag:
+        if not Note.objects.filter(tag=tag):
+            tag.delete()
     return redirect('index')
 
 
