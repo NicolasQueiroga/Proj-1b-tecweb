@@ -5,7 +5,7 @@ import matplotlib
 
 global colors, n
 colors = list(matplotlib.colors.cnames.values())
-
+n = len(colors)
 
 def index_note(request):
     notes = Note.objects.all()
