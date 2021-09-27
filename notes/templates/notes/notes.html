@@ -7,8 +7,16 @@
     <div class="card-content">
         <p>{{ note.content }}</p>
     </div>
-
-
+    
+    
+    
+    <div class="btns">
+        <button class="update-btn1" onclick="openForm('{{ note.id }}')">Atualizar</button>
+        <form method="POST" id="delete-form" action="{% url 'delete-note' note.id %}">
+            {% csrf_token %}
+            <button class="delete-btn" type="submit">Deletar</button>
+        </form>
+    </div>
     <form method="POST" action="{% url 'update' note.id %}">
         {% csrf_token %}
         <div class="form-popup" id="{{ note.id }}">
@@ -19,14 +27,6 @@
             <button class="cancel-btn" onclick="closeForm('{{ note.id }}')" type="button">Cancelar</button>
         </div>
     </form>
-
-    <div class="btns">
-        <button class="update-btn1" onclick="openForm('{{ note.id }}')">Atualizar</button>
-        <form method="POST" id="delete-form" action="{% url 'delete-note' note.id %}">
-            {% csrf_token %}
-            <button class="delete-btn" type="submit">Deletar</button>
-        </form>
-    </div>
     
 </div>
 {% empty %}

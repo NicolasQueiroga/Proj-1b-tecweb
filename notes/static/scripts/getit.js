@@ -7,6 +7,7 @@ function openForm(id) {
   }
   document.getElementById(String(id)).style.display = "flex";
   lastOpenedId = id;
+  document.getElementsByClassName("btns").style.display = "none";
 }
 
 function closeForm(id) {
@@ -39,5 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
   for (let i = 0; i < cards.length; i++) {
     let card = cards[i];
     card.style.background = card.id;
+    card.className += ` card-rotation-${getRandomInt(1, 11)}`;
   }
 });
