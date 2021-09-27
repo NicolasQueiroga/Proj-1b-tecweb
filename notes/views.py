@@ -31,7 +31,7 @@ def upload_note(request):
     if tag_name != '':
         tag, create = Tag.objects.get_or_create(name=tag_name)
         if create:
-            tag.color = colors[np.random.randint(0, 7)]
+            tag.color = colors[np.random.randint(0, n)]
             tag.save()
         note.tag = tag
 
