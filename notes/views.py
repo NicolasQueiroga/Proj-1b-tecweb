@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Note, Tag
+import numpy as np
+import matplotlib
+
+global colors, n
+colors = list(matplotlib.colors.cnames.values())
 
 
 def index_note(request):
@@ -19,19 +24,19 @@ def sorted_tag(request, tag_id):
 
 
 def upload_note(request):
-    if request.method == 'POST':
-        note = Note()
-        note.title = request.POST.get('title')
-        note.content = request.POST.get('content')
-        tag_name = request.POST.get('tag')
-        if tag_name != '':
-            tag, create = Tag.objects.get_or_create(name=tag_name)
-            if create:
-                tag.save()
-            note.tag = tag
+    note = Note()
+    note.title = request.POST.get('title')
+    note.content = request.POST.get('content')
+    tag_name = request.POST.get('tag')
+    if tag_name != '':
+        tag, create = Tag.objects.get_or_create(name=tag_name)
+        if create:
+            tag.color = colors[np.random.randint(0, 7)]
+            tag.save()
+        note.tag = tag
 
-        note.save()
-        return redirect('index')
+    note.save()
+    return redirect('index')
 
 
 def update_note(request, note_id):
@@ -44,6 +49,7 @@ def update_note(request, note_id):
     if tag_name != '':
         tag, create = Tag.objects.get_or_create(name=tag_name)
         if create:
+            tag.color = colors[np.random.randint(0, 7)]
             tag.save()
         Note.objects.filter(pk=note_id).update(title=request.POST.get('title'), content=request.POST.get('content'), tag=tag)
     else:

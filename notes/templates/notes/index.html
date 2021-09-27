@@ -11,10 +11,12 @@
         </button>
     </form>
     <span class="subtitle">Como o Post-it, mas com outro verbo</span>
-    <form method="get" action="{% url 'tags' %}">
-        {% csrf_token %}
-        <button class="btn tag-btn" type="submit">Tags</button>
-    </form>
+    <div class="tag-container">
+        <form method="get" action="{% url 'tags' %}">
+            {% csrf_token %}
+            <button class="btn tag-btn" type="submit">Tags</button>
+        </form>
+    </div>
 </div>
 
 <script type="text/javascript" src="{% static 'scripts/getit.js' %}"></script>

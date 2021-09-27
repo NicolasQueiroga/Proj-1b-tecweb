@@ -190,6 +190,13 @@ html, body {
   justify-content: space-evenly;
 }
 
+.tag-container {
+  display: flex;
+  margin-right: 30px;
+  width: 100vw;
+  justify-content: flex-end;
+}
+
 .empty {
   background-color: #f7d736;
   padding: 15px;

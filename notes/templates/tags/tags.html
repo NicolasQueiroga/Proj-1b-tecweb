@@ -2,7 +2,7 @@
 {% load static %}
 {% block tags %}
 {% for tag in tags %}
-<div class="card tag">
+<div class="card tag" id="{{ tag.color }}">
     <form action="{% url 'sorted' tag.id %}">
         <button class="no-btn" type="submit">
             <h3 class="tag-title">{{ tag.name }}</h3>
@@ -14,12 +14,12 @@
             <button class="delete-btn" type="submit">Deletar</button>
         </form>
     </div>
-    {% empty %}
-    <form action="{% url 'index' %}">
-        <button class="no-btn is-btn" type="submit">
-            <h3 class="empty">Crie algum lembrete com uma Tag!</h3>
-        </button>
-    </form>
 </div>
+{% empty %}
+<form action="{% url 'index' %}">
+    <button class="no-btn is-btn" type="submit">
+        <h3 class="empty">Crie algum lembrete com uma Tag!</h3>
+    </button>
+</form>
 {% endfor %}
 {% endblock %}
