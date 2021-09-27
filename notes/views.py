@@ -7,6 +7,7 @@ global colors, n
 colors = list(matplotlib.colors.cnames.values())
 n = len(colors)
 
+
 def index_note(request):
     notes = Note.objects.all()
     return render(request, 'notes/notes.html', {'notes': notes})
@@ -51,10 +52,12 @@ def update_note(request, note_id):
         if create:
             tag.color = colors[np.random.randint(0, 7)]
             tag.save()
-        Note.objects.filter(pk=note_id).update(title=request.POST.get('title'), content=request.POST.get('content'), tag=tag)
+        Note.objects.filter(pk=note_id).update(title=request.POST.get(
+            'title'), content=request.POST.get('content'), tag=tag)
     else:
-        Note.objects.filter(pk=note_id).update(title=request.POST.get('title'), content=request.POST.get('content'))
-    
+        Note.objects.filter(pk=note_id).update(title=request.POST.get(
+            'title'), content=request.POST.get('content'))
+
     return redirect('index')
 
 
