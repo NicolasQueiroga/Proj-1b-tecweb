@@ -5,6 +5,7 @@ import matplotlib
 
 global colors, n
 colors = list(matplotlib.colors.cnames.values())
+n = len(colors)
 
 
 def index_note(request):
@@ -31,7 +32,7 @@ def upload_note(request):
     if tag_name != '':
         tag, create = Tag.objects.get_or_create(name=tag_name)
         if create:
-            tag.color = colors[np.random.randint(0, 7)]
+            tag.color = colors[np.random.randint(0, n)]
             tag.save()
         note.tag = tag
 
@@ -51,10 +52,12 @@ def update_note(request, note_id):
         if create:
             tag.color = colors[np.random.randint(0, 7)]
             tag.save()
-        Note.objects.filter(pk=note_id).update(title=request.POST.get('title'), content=request.POST.get('content'), tag=tag)
+        Note.objects.filter(pk=note_id).update(title=request.POST.get(
+            'title'), content=request.POST.get('content'), tag=tag)
     else:
-        Note.objects.filter(pk=note_id).update(title=request.POST.get('title'), content=request.POST.get('content'))
-    
+        Note.objects.filter(pk=note_id).update(title=request.POST.get(
+            'title'), content=request.POST.get('content'))
+
     return redirect('index')
 
 
@@ -64,12 +67,11 @@ def delete_note(request, note_id):
         note_sel = Note.objects.get(id=note_id)
     except Note.DoesNotExist:
         return redirect('index')
-    if note_sel.tag:
-        tag_id = note_sel.tag.id
-        if Tag.objects.filter(pk=note_sel.tag.id):
-            Tag.objects.get(id=tag_id).delete()
+    tag = note_sel.tag
     note_sel.delete()
-
+    if tag:
+        if not Note.objects.filter(tag=tag):
+            tag.delete()
     return redirect('index')
 
 

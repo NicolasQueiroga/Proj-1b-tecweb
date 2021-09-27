@@ -30,6 +30,10 @@ html, body {
 
 /* Fonte: https://codepen.io/CrisWoler/pen/ogXBLj */
 
+button {
+  cursor: pointer
+}
+
 .btn {
   position: relative;
   display: block;
